@@ -1,0 +1,30 @@
+<h1>Real-Time Product List</h1>
+<ul id="realTimeProductList">
+    {{#each products}}
+    <li>{{this.title}} - {{this.description}}</li>
+    {{/each}}
+</ul>
+
+<form id="productForm">
+    <label for="productName">nombre del producto:</label>
+    <input type="text" id="productName" name="productName" required>
+    <label for="productDescription">descripcion de producto:</label>
+    <input type="text" id="productDescription" name="productDescription" required>
+    <button type="button" onclick="createProduct()">Add Product</button>
+</form>
+
+<script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+<script>
+    const socket = io();
+
+    socket.on('updateProductList', (products) => {
+        const productList = document.getElementById('realTimeProductList');
+        productList.innerHTML = products.map(product => `<li>${product.title} - ${product.description}</li>`).join('');
+    });
+
+    function createProduct() {
+        const productName = document.getElementById('productName').value;
+        const productDescription = document.getElementById('productDescription').value;
+        socket.emit('createProduct', { title: productName, description: productDescription });
+    }
+</script>

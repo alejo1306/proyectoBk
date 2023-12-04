@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Producto 12",
+    "description": "Es el producto 12",
+    "price": 1100,
+    "thumbnail": "https:imagen.com",
+    "code": "vhoggw76vhdfsfgkg",
+    "stock": 110,
+    "id": 1
+  },
+  {
+    "title": "Producto 13",
+    "description": "Es el producto 13",
+    "price": 1100,
+    "thumbnail": "https:imagen.com",
+    "code": "vhoggw76vhdfsg",
+    "stock": 110,
+    "id": 2
+  },
+  {
+    "title": "Producto 15",
+    "description": "Es el producto 11",
+    "price": 1100,
+    "thumbnail": "https:imagen.com",
+    "code": "vhogg6vhdfsg",
+    "stock": 110,
+    "id": 3
+  }
+]
