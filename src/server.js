@@ -6,6 +6,8 @@ import handlerbars from "express-handlebars"
 import __dirname from './utils.js';
 import { ProductManager, Product } from './controlador/productController.js';
 import { Server } from 'socket.io';
+import mongoose from 'mongoose';
+
 
 
 const app = express();
@@ -18,6 +20,10 @@ const io = new Server(htttpServer)
 //------------------------------------------------------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+mongoose.connect('mongodb://localhost:27017/')
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('Error connecting to MongoDB:', err));
 
 
 app.use('/api/products', productRoutes);
@@ -34,20 +40,27 @@ app.set("views", `${__dirname}/views`)
 app.use(express.static(`${__dirname}/public`))
 //---------------------------------------------
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
     console.log('A user connected');
 
-    socket.emit('updateProductList', productManager.getProducts());
 
-    socket.on('createProduct', (product) => {
-        productManager.addProduct(product);
-        io.emit('updateProductList', productManager.getProducts());
+
+    socket.on('createProduct', async (product) => {
+        console.log("product", product);
+        const prodAdd = await productManager.addProduct(product);
+
+        const products = await productManager.getProducts()
+
+
+
+        io.emit('updateProductList', products);
     });
 
     socket.on('disconnect', () => {
         console.log('User disconnected');
     });
 });
+
 
 //----------------------------------------------
 

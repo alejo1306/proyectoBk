@@ -6,10 +6,20 @@
 </ul>
 
 <form id="productForm">
-    <label for="productName">nombre del producto:</label>
-    <input type="text" id="productName" name="productName" required>
-    <label for="productDescription">descripcion de producto:</label>
-    <input type="text" id="productDescription" name="productDescription" required>
+
+    <label for="title">nombre del producto:</label>
+    <input type="text" id="title" name="title" required>
+    <label for="description">descripcion de producto:</label>
+    <input type="text" id="description" name="description" required>
+    <label for="price">price:</label>
+    <input type="number" id="price" name="price" required>
+    <label for="thumbnail">thumbnail:</label>
+    <input type="text" id="thumbnail" name="thumbnail" required>
+    <label for="code">code:</label>
+    <input type="number" id="code" name="code" required>
+    <label for="stock">stock:</label>
+    <input type="number" id="stock" name="stock" required>
+
     <button type="button" onclick="createProduct()">Add Product</button>
 </form>
 
@@ -23,8 +33,15 @@
     });
 
     function createProduct() {
-        const productName = document.getElementById('productName').value;
-        const productDescription = document.getElementById('productDescription').value;
-        socket.emit('createProduct', { title: productName, description: productDescription });
+
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const price = document.getElementById('price').value;
+        const thumbnail = document.getElementById('thumbnail').value;
+        const code = document.getElementById('code').value;
+        const stock = document.getElementById('stock').value;
+
+
+        socket.emit('createProduct', { title, description, price, thumbnail, code, stock });
     }
 </script>
