@@ -7,6 +7,8 @@ import __dirname from './utils.js';
 import { ProductManager, Product } from './controlador/productController.js';
 import { Server } from 'socket.io';
 import mongoose from 'mongoose';
+import MongoStore from 'connect-mongo'
+import session from 'express-session'
 
 
 
@@ -18,10 +20,18 @@ const htttpServer = app.listen(PORT, () => {
 
 const io = new Server(htttpServer)
 //------------------------------------------------------
+app.use(session(
+    {
+        secret: "aleSecret",
+        resave: true,
+        saveUninitialized: true
+    }
+))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://localhost:27017/')
+mongoose.connect('mongodb://localhost:27017/Productos')
+
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Error connecting to MongoDB:', err));
 
