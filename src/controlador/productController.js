@@ -1,16 +1,19 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 
-const productSchema = new mongoose.Schema({
+const productSchema = new Schema({
     title: String,
     description: String,
     price: Number,
     thumbnail: String,
     code: String,
     stock: Number,
+    category: String
 });
 
-export const ProductModel = mongoose.model('Product', productSchema);
+const ProductModel = model('Product', productSchema);
+
+export { ProductModel };
 
 export class ProductManager {
     async getProducts(reqQuery) {

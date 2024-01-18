@@ -30,7 +30,7 @@ app.use(session(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://localhost:27017/Productos')
+mongoose.connect('mongodb+srv://sagel1306:28302983@clusterbk.yia5hgs.mongodb.net/?retryWrites=true&w=majority')
 
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Error connecting to MongoDB:', err));
