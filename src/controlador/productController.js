@@ -1,27 +1,12 @@
-import { Schema, model } from 'mongoose';
-
-
-const productSchema = new Schema({
-    title: String,
-    description: String,
-    price: Number,
-    thumbnail: String,
-    code: String,
-    stock: Number,
-    category: String
-});
-
-const ProductModel = model('Product', productSchema);
-
-export { ProductModel };
+import { ProductModel } from '../daos/models/Products.model.js';
 
 export class ProductManager {
     async getProducts(reqQuery) {
         try {
-            const limit = parseInt(reqQuery.limit) || 10;
-            const page = parseInt(reqQuery.page) || 1;
-            const sort = reqQuery.sort || 'asc';
-            const query = reqQuery.query || '';
+            const limit = parseInt(reqQuery?.limit) || 10;
+            const page = parseInt(reqQuery?.page) || 1;
+            const sort = reqQuery?.sort || 'asc';
+            const query = reqQuery?.query || '';
 
             const filter = query ? { title: { $regex: new RegExp(query, 'i') } } : {};
 

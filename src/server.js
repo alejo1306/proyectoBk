@@ -7,7 +7,6 @@ import __dirname from './utils.js';
 import { ProductManager, Product } from './controlador/productController.js';
 import { Server } from 'socket.io';
 import mongoose from 'mongoose';
-import MongoStore from 'connect-mongo'
 import session from 'express-session'
 
 
@@ -48,7 +47,17 @@ app.set("view engine", "hbs")
 app.set("views", `${__dirname}/views`)
 
 app.use(express.static(`${__dirname}/public`))
+
+app.use(session(
+    {
+        secret: "preyectSc",
+        resave: true,
+        saveUninitialized: true
+    }
+))
 //---------------------------------------------
+
+const productManager = new ProductManager('./product.json');
 
 io.on('connection', async (socket) => {
     console.log('A user connected');
@@ -95,6 +104,4 @@ app.get('/realTimeProducts', async (req, res) => {
         res.status(500).json({ success: false, error: 'Error interno del servidor' });
     }
 });
-
-
 
