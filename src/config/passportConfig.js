@@ -1,4 +1,5 @@
-// passport.js
+// passportConfig.js
+
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import { UserModel } from '../daos/models/UserModel.js';

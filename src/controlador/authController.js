@@ -3,15 +3,28 @@ import passport from 'passport';
 import { UserModel } from '../daos/models/UserModel.js';
 
 export const renderLogin = (req, res) => {
-    res.render('login');
+    const errorMessage = req.query.error;
+    res.render('login', { error: errorMessage });
 };
 
-export const processLogin = passport.authenticate('local', {
-    successRedirect: '/api/products',
-    failureRedirect: '/auth/login',
-    failureFlash: true
-});
-
+export const processLogin = (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            // Autenticación fallida, redirigir con un mensaje de error
+            return res.redirect('/auth/login?error=Credenciales incorrectas');
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            // Autenticación exitosa, redirigir al usuario a la página deseada
+            return res.redirect('/api/products');
+        });
+    })(req, res, next);
+};
 export const renderSignup = (req, res) => {
     res.render('signup');
 };

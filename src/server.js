@@ -1,7 +1,7 @@
 
 import express from 'express';
 import productRoutes from './routes/productos.js';
-import cartRoutes from './routes/carrito.js';
+import cartRoutes from './routes/cart.js';
 import handlerbars from "express-handlebars"
 import __dirname from './utils.js';
 import { ProductManager, Product } from './controlador/productController.js';
@@ -10,6 +10,8 @@ import mongoose from 'mongoose';
 import session from 'express-session'
 import { UserModel } from './daos/models/UserModel.js';
 import bcrypt from 'bcrypt';
+import passport from 'passport';  // Importa passport directamente
+import './config/passportConfig.js';
 import LocalStrategy from 'passport-local';
 import authRoutes from './routes/auth.js';
 
@@ -28,6 +30,9 @@ app.use(session(
         saveUninitialized: true
     }
 ))
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
