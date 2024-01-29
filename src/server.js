@@ -10,7 +10,7 @@ import mongoose from 'mongoose';
 import session from 'express-session'
 import { UserModel } from './daos/models/UserModel.js';
 import bcrypt from 'bcrypt';
-import passport from 'passport';  // Importa passport directamente
+import passport from 'passport';
 import './config/passportConfig.js';
 import LocalStrategy from 'passport-local';
 import authRoutes from './routes/auth.js';

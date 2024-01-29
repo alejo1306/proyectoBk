@@ -1,4 +1,3 @@
-// authController.js
 import passport from 'passport';
 import { UserModel } from '../daos/models/UserModel.js';
 
@@ -13,14 +12,14 @@ export const processLogin = (req, res, next) => {
             return next(err);
         }
         if (!user) {
-            // Autenticación fallida, redirigir con un mensaje de error
+            // Autenticación fallida
             return res.redirect('/auth/login?error=Credenciales incorrectas');
         }
         req.logIn(user, (err) => {
             if (err) {
                 return next(err);
             }
-            // Autenticación exitosa, redirigir al usuario a la página deseada
+            // Autenticación exitosa
             return res.redirect('/api/products');
         });
     })(req, res, next);
